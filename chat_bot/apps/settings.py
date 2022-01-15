@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import logging
+
 from sqlalchemy import create_engine
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -24,6 +25,7 @@ DATABASES = {
 
 SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{DATABASES['USER']}:{DATABASES['PASSWORD']}@" \
                           f"{DATABASES['HOST']}/{DATABASES['NAME']}"
+print(SQLALCHEMY_DATABASE_URL)
 
 ENGINE = create_engine(
     SQLALCHEMY_DATABASE_URL
