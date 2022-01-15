@@ -1,8 +1,8 @@
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-import settings
-import initial_db
+from chat_bot.bot.settings import SQLALCHEMY_DATABASE_URL
+from chat_bot.bot.initial_db import Base
 from alembic import context
 
 # this is the Alembic Config object, which provides
@@ -17,7 +17,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = initial_db.Base.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -72,7 +72,7 @@ def run_migrations_online():
 
 
 alembic_config = config.get_section(config.config_ini_section)
-alembic_config['sqlalchemy.url'] = settings.SQLALCHEMY_DATABASE_URL
+alembic_config['sqlalchemy.url'] = SQLALCHEMY_DATABASE_URL
 engine = engine_from_config(
     alembic_config,
     prefix='sqlalchemy.',
