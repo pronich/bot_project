@@ -1,0 +1,4 @@
+environ==1.0
+python-dotenv==0.19.2
+sqlalchemy==1.4.29
+psycopg==2.9.3
