@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 LOGGER = logging.getLogger(__name__)
 
 
-BASE_DIR = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
+BASE_DIR = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
 load_dotenv(f'{BASE_DIR}/.env')
 
 TOKEN = os.getenv("TOKEN")
