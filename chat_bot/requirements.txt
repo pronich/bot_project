@@ -5,3 +5,4 @@ psycopg2
 alembic==1.7.5
 python-telegram-bot
 telegram
+dotenv

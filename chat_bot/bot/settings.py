@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 LOGGER = logging.getLogger(__name__)
 
 
-BASE_DIR = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
+BASE_DIR = '/'.join(os.path.abspath(os.getcwd()).split('/'))
 load_dotenv(f'{BASE_DIR}/.env')
 
 TOKEN = os.getenv("TOKEN")
@@ -25,7 +25,6 @@ DATABASES = {
 
 SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{DATABASES['USER']}:{DATABASES['PASSWORD']}@" \
                           f"{DATABASES['HOST']}/{DATABASES['NAME']}"
-print(SQLALCHEMY_DATABASE_URL)
 
 ENGINE = create_engine(
     SQLALCHEMY_DATABASE_URL
