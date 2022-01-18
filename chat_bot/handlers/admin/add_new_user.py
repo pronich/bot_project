@@ -1,15 +1,13 @@
 from aiogram import types, Dispatcher
-from aiogram import Bot
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup, \
     ReplyKeyboardRemove
 
 from bot.check_func import get_login, retrieve_user_by_login
-from bot.states import AddActiveUser, AppDialog
-from bot.server import bot
+from bot.states import AddActiveUser
 
 
-async def app_notification(message: types.Message):
+async def app_notification(message: types.Message, dp: Dispatcher):
     """Send notification to admin with information about user"""
     keyboard_markup = InlineKeyboardMarkup(row_width=3)
     text_and_data = (
@@ -21,7 +19,7 @@ async def app_notification(message: types.Message):
 
     keyboard_markup.row(*row_btns)
 
-    await bot.send_message(
+    await dp.bot.send_message(
         # message['tg_login'],  # TODO: Change for admin_id
         '305607064',
         f"There is new student!\n"
