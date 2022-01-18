@@ -4,9 +4,9 @@ import logging
 from aiogram import Bot
 from aiogram.types import BotCommand
 from config.settings import BOT, DP, LOGGER
+from handlers.admin.add_new_user import register_handlers_add_user
 from handlers.initial_bot import register_handlers_initial
 from handlers.user.application import register_handlers_application
-from handlers.admin.add_new_user import register_handlers_add_user
 
 logging.basicConfig(level=logging.INFO)
 

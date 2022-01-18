@@ -1,11 +1,9 @@
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardRemove
-
-from handlers.admin.notifications import new_user_notification
 from functions.check_func import create_user
-
 from functions.states import AppDialog
+from handlers.admin.notifications import new_user_notification
 
 
 async def app_start(message: types.Message, state: FSMContext):

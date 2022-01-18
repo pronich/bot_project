@@ -1,7 +1,6 @@
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
-
 from functions.check_func import get_login, retrieve_user_by_login
 from functions.states import AddActiveUser
 

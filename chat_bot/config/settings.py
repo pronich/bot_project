@@ -1,12 +1,12 @@
+import logging
 import os
 import sys
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from dotenv import load_dotenv
-import logging
-
 from sqlalchemy import create_engine
+
 path = os.path.join(os.path.dirname(__file__), os.pardir)
 sys.path.append(path)
 

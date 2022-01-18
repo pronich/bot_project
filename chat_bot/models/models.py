@@ -1,10 +1,10 @@
-from sqlalchemy.orm import relationship
-
-from config.settings import ENGINE
-from sqlalchemy import Column, Integer, String, Time, Boolean, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-import sqlalchemy.types as types
 from datetime import time
+
+import sqlalchemy.types as types
+from config.settings import ENGINE
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Time
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 

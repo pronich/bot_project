@@ -1,8 +1,7 @@
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
-
 from functions.check_func import check_user_in_db
 from functions.states import AppDialog
 
