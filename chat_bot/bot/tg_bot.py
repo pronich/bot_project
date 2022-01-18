@@ -1,8 +1,8 @@
 from sqlalchemy.orm import sessionmaker
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 
-from initial_db import Users
-from settings import TOKEN, LOGGER, ENGINE
+from bot.initial_db import Users
+from bot.settings import TOKEN, LOGGER, ENGINE
 from telegram.ext import Updater, CallbackContext, CommandHandler, ConversationHandler, MessageHandler, Filters
 
 Session = sessionmaker(bind=ENGINE)
@@ -163,3 +163,33 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
+
+{
+    "id": "1312572348286544380",
+    "from": {
+        "id": 305607064,
+        "is_bot": false,
+        "first_name": "Nikolay",
+        "username": "Pronich",
+        "language_code": "ru"
+    },
+    "message": {
+        "message_id": 446,
+        "from": {
+            "id": 5015423087,
+            "is_bot": true,
+            "first_name": "julia_uchit",
+            "username": "JuliaUchitBot"
+        },
+        "chat": {
+            "id": 305607064,
+            "first_name": "Nikolay",
+            "username": "Pronich",
+            "type": "private"
+        },
+        "date": 1642500621,
+        "text": "There is new student!\nName: Niko\nSurname: Pron\nEmail: mail@mail.ru\nPhone: +79295918007\nTG_link: t.me/Pronich",
+        "entities": [
+            {
+                "type": "email", "offset": 54, "length": 12}, {"type": "phone_number", "offset": 74, "length": 12}, {"type": "url", "offset": 96, "length": 12}], "reply_markup": {"inline_keyboard": [[{"text": "New", "callback_data": "new_user"}, {"text": "Active", "callback_data": "active"}]]}}, "chat_instance": "8358028624234122487", "data": "active"}

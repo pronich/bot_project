@@ -1,4 +1,7 @@
 import os
+
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from dotenv import load_dotenv
 import logging
 
@@ -9,7 +12,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 LOGGER = logging.getLogger(__name__)
 
 
-BASE_DIR = '/'.join(os.path.abspath(os.getcwd()).split('/'))
+BASE_DIR = os.path.abspath(os.getcwd())
 load_dotenv(f'{BASE_DIR}/.env')
 
 TOKEN = os.getenv("TOKEN")
@@ -29,3 +32,10 @@ SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{DATABASES['USER']}:{DATABASES
 ENGINE = create_engine(
     SQLALCHEMY_DATABASE_URL
 )
+
+STORAGE = RedisStorage2(host=os.getenv("REDIS_HOST"),
+                        port=int(os.getenv("REDIS_PORT")),
+                        db=3,
+                        prefix='fsm_key')
+
+ADMIN_ID = 1234

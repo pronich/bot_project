@@ -3,6 +3,5 @@ python-dotenv==0.19.2
 sqlalchemy==1.4.29
 psycopg2
 alembic==1.7.5
-python-telegram-bot
-telegram
-dotenv
+aiogram
+aioredis
