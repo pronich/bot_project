@@ -2,10 +2,10 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from handlers.admin.add_new_user import app_notification
-from bot.check_func import create_user
+from handlers.admin.notifications import new_user_notification
+from functions.check_func import create_user
 
-from bot.states import AppDialog
+from functions.states import AppDialog
 
 
 async def app_start(message: types.Message, state: FSMContext):
@@ -73,7 +73,7 @@ async def app_phone(message: types.Message, state: FSMContext):
             f"Have a nice day!"
         )
 
-        await app_notification(user_info)
+        await new_user_notification(user_info)
     await state.reset_state(with_data=True)
     await state.finish()
 

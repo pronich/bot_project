@@ -3,12 +3,12 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-from bot.check_func import check_user_in_db
-from bot.states import AppDialog
+from functions.check_func import check_user_in_db
+from functions.states import AppDialog
 
 
 async def send_welcome(message: types.Message):
-    """Welcome message from bot"""
+    """Welcome message from functions"""
     user_id = message.from_user.id
     user_login = message.from_user.username
 
@@ -31,19 +31,19 @@ async def send_welcome(message: types.Message):
 
 
 async def send_help(message: types.Message):
-    """Send information about bot depending on users"""
+    """Send information about functions depending on users"""
     user_id = message.from_user.id
     result = check_user_in_db(user_id)
     if result is None:
         await message.answer(
-            f"This bot will allow you to receive information and reminder about lessons, sign a contract\n\n"
+            f"This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
             f"You are new user, so you have limited functional.\n"
             f"To get more, sign up, please.\n\n"
             f"To sign up: /start"
         )
     else:
         await message.answer(
-            f"This bot will allow you to receive information and reminder about lessons, sign a contract\n\n"
+            f"This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
             f"Get information of lessons: /lesson"
         )
 

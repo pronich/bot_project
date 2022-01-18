@@ -1,8 +1,8 @@
 import re
 
 from sqlalchemy.orm import sessionmaker
-from settings import ENGINE
-from initial_db import Users
+from config.settings import ENGINE
+from models.models import Users
 
 Session = sessionmaker(bind=ENGINE)
 session = Session()

@@ -1,44 +1,16 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup, \
-    ReplyKeyboardRemove
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 
-from bot.check_func import get_login, retrieve_user_by_login
-from bot.states import AddActiveUser
-
-
-async def app_notification(message: types.Message, dp: Dispatcher):
-    """Send notification to admin with information about user"""
-    keyboard_markup = InlineKeyboardMarkup(row_width=3)
-    text_and_data = (
-        ('New', 'new_user'),
-        ('Active', 'active'),
-    )
-
-    row_btns = (InlineKeyboardButton(text, callback_data=data) for text, data in text_and_data)
-
-    keyboard_markup.row(*row_btns)
-
-    await dp.bot.send_message(
-        # message['tg_login'],  # TODO: Change for admin_id
-        '305607064',
-        f"There is new student!\n"
-        f"Name: {message['name']}\n"
-        f"Surname: {message['surname']}\n"
-        f"Email: {message['email']}\n"
-        f"Phone: {message['phone']}\n"
-        f"TG_link: t.me/{message['tg_login']}",
-        reply_markup=keyboard_markup,
-        )
+from functions.check_func import get_login, retrieve_user_by_login
+from functions.states import AddActiveUser
 
 
-# @dp.callback_query_handler(text='new_user')
 async def message_new_user(query: types.CallbackQuery):
 
     await query.answer(f"Call to user and then insert initial lesson's time")
 
 
-# @dp.callback_query_handler(text='active')
 async def add_active_user(query: types.CallbackQuery, state: FSMContext):
     user_data = query.message.text
     user_login = get_login(user_data)
@@ -61,7 +33,6 @@ async def add_active_user(query: types.CallbackQuery, state: FSMContext):
     )
 
 
-@dp.message_handler(state=AddActiveUser.lesson_length)
 async def add_lesson_length(message: types.Message, state: FSMContext):
     """Last step for application. Send message to user and admin"""
     async with state.proxy() as user_info:
@@ -80,7 +51,6 @@ async def add_lesson_length(message: types.Message, state: FSMContext):
     )
 
 
-@dp.message_handler(state=AddActiveUser.day)
 async def add_day(message: types.Message, state: FSMContext):
     """First step of application. Request name"""
 
@@ -108,7 +78,6 @@ async def add_day(message: types.Message, state: FSMContext):
     )
 
 
-@dp.message_handler(state=AddActiveUser.time)
 async def add_time(message: types.Message, state: FSMContext):
     """First step of application. Request name"""
     if message.text == "That's All":
@@ -141,7 +110,6 @@ async def add_time(message: types.Message, state: FSMContext):
         )
 
 
-@dp.message_handler(state=AddActiveUser.level)
 async def add_level(message: types.Message, state: FSMContext):
     """First step of application. Request name"""
 
@@ -154,7 +122,6 @@ async def add_level(message: types.Message, state: FSMContext):
         )
 
 
-@dp.message_handler(state=AddActiveUser.lesson_available)
 async def add_available_lesson(message: types.Message, state: FSMContext):
     """First step of application. Request name"""
 
@@ -174,7 +141,6 @@ async def add_available_lesson(message: types.Message, state: FSMContext):
     )
 
 
-@dp.message_handler(state=AddActiveUser.is_promo)
 async def add_promo(message: types.Message, state: FSMContext):
     """First step of application. Request name"""
 
@@ -200,7 +166,7 @@ async def add_promo(message: types.Message, state: FSMContext):
     await state.finish()
 
 
-def register_handlers_application(dp: Dispatcher):
+def register_handlers_add_user(dp: Dispatcher):
     dp.register_callback_query_handler(message_new_user, text='new_user')
     dp.register_callback_query_handler(add_active_user, text='active')
     dp.register_message_handler(add_lesson_length, state=AddActiveUser.lesson_length)
