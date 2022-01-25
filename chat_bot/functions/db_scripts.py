@@ -8,8 +8,8 @@ Session = sessionmaker(bind=ENGINE)
 session = Session()
 
 
-def check_user_in_db(user):
-    result = session.query(Users).filter(Users.id == user).first()
+def check_user_in_db(user, status='*'):
+    result = session.query(Users).filter(Users.id == user, Users.status == status).first()
     return result
 
 
@@ -24,8 +24,8 @@ def create_user(user_info):
                    phone=user_info['phone'])
         session.add(u1)
         session.commit()
-        id = check_user_in_db(user_info['id']).id
-        return id
+        user_id = check_user_in_db(user_info['id']).id
+        return user_id
     else:
         return user.id
 
@@ -49,11 +49,11 @@ def add_lessons_info(data):
     )
 
     for sch in data['classes']['schedule']:
-        sched = Schedule(
+        schedule = Schedule(
             day=sch['day'],
             time=sch['time']
         )
-        classes.schedule.append(sched)
+        classes.schedule.append(schedule)
 
     user.is_promo = data['is_promo']
     user.status = 'Active'
@@ -63,4 +63,15 @@ def add_lessons_info(data):
     session.commit()
 
 
-
+def get_lessons_by_user(user_id):
+    data = {}
+    classes = session.query(
+        Classes.id, Classes.level, Classes.available_lesson
+    ).filter(Classes.user_id == user_id).first()
+    scheduled = session.query(Schedule.day, Schedule.time).filter(Schedule.class_id == classes.id).all()
+    data['level'] = classes.level
+    data['available_lesson'] = classes.available_lesson
+    data['schedule'] = {}
+    for schedule in scheduled:
+        data['schedule'][schedule.day] = schedule.time
+    return data

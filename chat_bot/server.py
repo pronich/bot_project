@@ -7,6 +7,7 @@ from config.settings import BOT, DP, LOGGER
 from handlers.admin.add_new_user import register_handlers_add_user
 from handlers.initial_bot import register_handlers_initial
 from handlers.user.application import register_handlers_application
+from handlers.user.common_comands import register_handlers_common
 
 logging.basicConfig(level=logging.INFO)
 
@@ -27,6 +28,7 @@ async def main():
     register_handlers_initial(DP)
     register_handlers_application(DP)
     register_handlers_add_user(DP)
+    register_handlers_common(DP)
 
     # Установка общих команд бота
     await set_commands(BOT)
