@@ -1,13 +1,13 @@
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from functions.db_scripts import get_login, retrieve_user_by_login, add_lessons_info
+from functions.db_scripts import add_lessons_info, get_login, retrieve_user_by_login
 from functions.states import AddActiveUser
 
 
 async def message_new_user(query: types.CallbackQuery):
 
-    await query.answer(f"Call to user and then insert initial lesson's time")
+    await query.answer("Call to user and then insert initial lesson's time")
 
 
 async def add_active_user(query: types.CallbackQuery, state: FSMContext):
@@ -23,8 +23,8 @@ async def add_active_user(query: types.CallbackQuery, state: FSMContext):
 
     reply_keyboard = [[KeyboardButton('60 min'), KeyboardButton('90 min')]]
     await query.message.reply(
-        f"Ok. Let's add information about this student.\n\n"
-        f"Please, choose length of lessons",
+        "Ok. Let's add information about this student.\n\n"
+        "Please, choose length of lessons",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=reply_keyboard, one_time_keyboard=True, input_field_placeholder='Choose length'
         ),
@@ -42,7 +42,7 @@ async def add_lesson_length(message: types.Message, state: FSMContext):
     ]]
     await AddActiveUser.next()
     await message.reply(
-        f"Ok, press 'Add schedule'",
+        "Ok, press 'Add schedule'",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=reply_keyboard, one_time_keyboard=True, input_field_placeholder='Next step'
         ),
@@ -55,7 +55,7 @@ async def add_day(message: types.Message, state: FSMContext):
     if message.text != 'Add Schedule':
         async with state.proxy() as user_info:
             length = len(user_info['classes']['schedule'])
-            user_info['classes']['schedule'][length-1]['time'] = message.text
+            user_info['classes']['schedule'][length - 1]['time'] = message.text
 
     reply_keyboard = [[
         KeyboardButton('Monday'),
@@ -68,8 +68,8 @@ async def add_day(message: types.Message, state: FSMContext):
     ]]
     await AddActiveUser.next()
     await message.reply(
-        f"Choose day.\n\n"
-        f"If you check all day, choose: That's All",
+        "Choose day.\n\n"
+        "If you check all day, choose: That's All",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=reply_keyboard, one_time_keyboard=True, input_field_placeholder='Choose day'
         ),
@@ -88,7 +88,7 @@ async def add_time(message: types.Message, state: FSMContext):
         ]]
         await AddActiveUser.next()
         await message.reply(
-            f"Choose student level",
+            "Choose student level",
             reply_markup=ReplyKeyboardMarkup(
                 keyboard=reply_keyboard, one_time_keyboard=True, input_field_placeholder='Choose level'
             ),
@@ -102,7 +102,7 @@ async def add_time(message: types.Message, state: FSMContext):
 
         await AddActiveUser.previous()
         await message.reply(
-            f"Send scheduled time in format: 00:00",
+            "Send scheduled time in format: 00:00",
             reply_markup=ReplyKeyboardRemove(),
         )
 
@@ -115,8 +115,8 @@ async def add_level(message: types.Message, state: FSMContext):
 
     await AddActiveUser.next()
     await message.reply(
-        f"Send count of available lessons"
-        )
+        "Send count of available lessons"
+    )
 
 
 async def add_available_lesson(message: types.Message, state: FSMContext):
@@ -131,7 +131,7 @@ async def add_available_lesson(message: types.Message, state: FSMContext):
     ]]
     await AddActiveUser.next()
     await message.reply(
-        f"Is this student have promo status?",
+        "Is this student have promo status?",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=reply_keyboard, one_time_keyboard=True, input_field_placeholder='Is Promo?'
         ),
@@ -150,7 +150,7 @@ async def add_promo(message: types.Message, state: FSMContext):
 
     add_lessons_info(user_info)
     await message.reply(
-        f"Thank you for the information. Check the data:\n\n"
+        "Thank you for the information. Check the data:\n\n"
         f"Lesson length: {user_info['classes']['lesson_length']},"
         f"Level: {user_info['classes']['level']},"
         f"Available lessons: {user_info['classes']['available_lesson']},"

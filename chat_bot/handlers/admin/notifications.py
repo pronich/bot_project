@@ -18,11 +18,11 @@ async def new_user_notification(message: types.Message):
     await BOT.send_message(
         # message['tg_login'],  # TODO: Change for admin_id
         '305607064',
-        f"There is new student!\n"
+        "There is new student!\n"
         f"Name: {message['name']}\n"
         f"Surname: {message['surname']}\n"
         f"Email: {message['email']}\n"
         f"Phone: {message['phone']}\n"
         f"TG_link: t.me/{message['tg_login']}",
         reply_markup=keyboard_markup,
-        )
+    )

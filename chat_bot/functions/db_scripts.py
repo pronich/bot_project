@@ -1,7 +1,7 @@
 import re
 
 from config.settings import ENGINE
-from models.models import Users, Classes, Schedule
+from models.models import Classes, Schedule, Users
 from sqlalchemy.orm import sessionmaker
 
 Session = sessionmaker(bind=ENGINE)

@@ -1,5 +1,4 @@
 from aiogram import Dispatcher, types
-
 from functions.db_scripts import check_user_in_db, get_lessons_by_user
 
 

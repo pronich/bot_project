@@ -14,11 +14,11 @@ async def app_start(message: types.Message, state: FSMContext):
 
     await AppDialog.next()
     await message.reply(
-        f"Good!\n"
-        f"Sign up doesn't take a lot of time.\n\n"
-        f"You can leave sign up with command: /cancel\n\n"
-        f"Please, wright your NAME in Russian."
-        f"For example, Василий",
+        "Good!\n"
+        "Sign up doesn't take a lot of time.\n\n"
+        "You can leave sign up with command: /cancel\n\n"
+        "Please, wright your NAME in Russian."
+        "For example, Василий",
         reply_markup=ReplyKeyboardRemove(),
     )
 
@@ -30,8 +30,8 @@ async def app_name(message: types.Message, state: FSMContext):
 
     await AppDialog.next()
     await message.reply(
-        f"Please, wright your SURNAME in Russian.\n"
-        f"For example, Петров"
+        "Please, wright your SURNAME in Russian.\n"
+        "For example, Петров"
     )
 
 
@@ -42,8 +42,8 @@ async def app_surname(message: types.Message, state: FSMContext):
 
     await AppDialog.next()
     await message.reply(
-        f"There are only a couple of steps left!\n"
-        f"Please, wright your EMAIL"
+        "There are only a couple of steps left!\n"
+        "Please, wright your EMAIL"
     )
 
 
@@ -54,7 +54,7 @@ async def app_email(message: types.Message, state: FSMContext):
 
     await AppDialog.next()
     await message.reply(
-        f"Write your PHONE NUMBER in the format +79999999999"
+        "Write your PHONE NUMBER in the format +79999999999"
     )
 
 
@@ -67,8 +67,8 @@ async def app_phone(message: types.Message, state: FSMContext):
 
         await message.reply(
             f"Thank you for the information, {user_info['name']}!\n\n"
-            f"Julia will send you a message soon.\n"
-            f"Have a nice day!"
+            "Julia will send you a message soon.\n"
+            "Have a nice day!"
         )
 
         await new_user_notification(user_info)

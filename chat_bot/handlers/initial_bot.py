@@ -35,15 +35,15 @@ async def send_help(message: types.Message):
     result = check_user_in_db(user_id)
     if result is None:
         await message.answer(
-            f"This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
-            f"You are new user, so you have limited functional.\n"
-            f"To get more, sign up, please.\n\n"
-            f"To sign up: /start"
+            "This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
+            "You are new user, so you have limited functional.\n"
+            "To get more, sign up, please.\n\n"
+            "To sign up: /start"
         )
     else:
         await message.answer(
-            f"This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
-            f"Get information of lessons: /lesson"
+            "This functions will allow you to receive information and reminder about lessons, sign a contract\n\n"
+            "Get information of lessons: /lesson"
         )
 
 
@@ -57,8 +57,8 @@ async def cancel_app(message: types.Message, state: FSMContext):
     await state.reset_state(with_data=True)
     await state.finish()
     await message.reply(
-        f"Ok, maybe next time!\n"
-        f"Have a good day!",)
+        "Ok, maybe next time!\n"
+        "Have a good day!",)
 
 
 def register_handlers_initial(dp: Dispatcher):
