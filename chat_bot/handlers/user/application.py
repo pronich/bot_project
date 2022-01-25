@@ -1,7 +1,7 @@
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardRemove
-from functions.check_func import create_user
+from functions.db_scripts import create_user
 from functions.states import AppDialog
 from handlers.admin.notifications import new_user_notification
 

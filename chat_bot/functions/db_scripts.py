@@ -1,7 +1,7 @@
 import re
 
 from config.settings import ENGINE
-from models.models import Users
+from models.models import Users, Classes, Schedule
 from sqlalchemy.orm import sessionmaker
 
 Session = sessionmaker(bind=ENGINE)
@@ -38,3 +38,29 @@ def retrieve_user_by_login(login):
 def get_login(phrase):
     print(re.findall('.me/(.*)', phrase))
     return re.findall('.me/(.*)', phrase)[0]
+
+
+def add_lessons_info(data):
+    user = check_user_in_db(data['id'])
+    classes = Classes(
+        level=data['classes']['level'],
+        time_length=data['classes']['lesson_length'],
+        available_lesson=data['classes']['available_lesson']
+    )
+
+    for sch in data['classes']['schedule']:
+        sched = Schedule(
+            day=sch['day'],
+            time=sch['time']
+        )
+        classes.schedule.append(sched)
+
+    user.is_promo = data['is_promo']
+    user.status = 'Active'
+    user.classes = classes
+
+    session.add(user)
+    session.commit()
+
+
+

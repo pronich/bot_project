@@ -37,7 +37,7 @@ class Users(Base):
     is_promo = Column(Boolean, default=False)
     role = Column(ChoiceType({"Admin": "Admin", "Student": "Student"}),
                   nullable=False, default="Student")
-    classes = relationship("Classes", backref='user', uselist=False)
+    classes = relationship("Classes", backref='users', uselist=False)
 
 
 class Classes(Base):
@@ -55,7 +55,7 @@ class Classes(Base):
 
 
 class Schedule(Base):
-    __tablenme__ = 'schedule'
+    __tablename__ = 'schedule'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     day = Column(ChoiceType({

@@ -1,7 +1,7 @@
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from functions.check_func import get_login, retrieve_user_by_login
+from functions.db_scripts import get_login, retrieve_user_by_login, add_lessons_info
 from functions.states import AddActiveUser
 
 
@@ -21,7 +21,6 @@ async def add_active_user(query: types.CallbackQuery, state: FSMContext):
         user_info['id'] = result.id
         user_info['tg_login'] = result.tg_login
 
-
     reply_keyboard = [[KeyboardButton('60 min'), KeyboardButton('90 min')]]
     await query.message.reply(
         f"Ok. Let's add information about this student.\n\n"
@@ -36,7 +35,7 @@ async def add_lesson_length(message: types.Message, state: FSMContext):
     """Last step for application. Send message to user and admin"""
     async with state.proxy() as user_info:
         user_info['classes'] = {}
-        user_info['classes']['lesson_length'] = message.text
+        user_info['classes']['lesson_length'] = message.text.split(' ')[0]
 
     reply_keyboard = [[
         KeyboardButton('Add Schedule')
@@ -101,7 +100,6 @@ async def add_time(message: types.Message, state: FSMContext):
                 user_info['classes']['schedule'] = []
             user_info['classes']['schedule'].append(schedule)
 
-
         await AddActiveUser.previous()
         await message.reply(
             f"Send scheduled time in format: 00:00",
@@ -148,17 +146,17 @@ async def add_promo(message: types.Message, state: FSMContext):
             promo = True
         else:
             promo = False
-        user_info['classes']['is_promo'] = promo
+        user_info['is_promo'] = promo
 
+    add_lessons_info(user_info)
     await message.reply(
         f"Thank you for the information. Check the data:\n\n"
-        f"{user_info}",
-        # f"Lesson length: {user_info['classes']['lesson_length']},"
-        # f"Level: {user_info['classes']['level']},"
-        # f"Available lessons: {user_info['classes']['available_lesson']},"
-        # f"Is promo: {user_info['classes']['available_lesson']},"
-        # f"Scheduled:"
-        # f"{user_info['classes']['schedule']}",
+        f"Lesson length: {user_info['classes']['lesson_length']},"
+        f"Level: {user_info['classes']['level']},"
+        f"Available lessons: {user_info['classes']['available_lesson']},"
+        f"Is promo: {user_info['is_promo']},"
+        f"Scheduled:"
+        f"{user_info['classes']['schedule']}",
         reply_markup=ReplyKeyboardRemove()
     )
     await state.reset_state(with_data=True)
